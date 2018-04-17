@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using vega.Persistance.Repository;
 using vega.Persistance.RepositoryInterfaces;
+using vega.Persistance.UnitOfWork;
 
 namespace vega
 {
@@ -28,6 +29,7 @@ namespace vega
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IVehicleRepository,VehicleRepository>();
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddAutoMapper();
 
             services.AddDbContext<VegaDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("Default")));

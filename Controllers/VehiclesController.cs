@@ -7,6 +7,7 @@ using vega.Controllers.Resources;
 using vega.Models;
 using vega.Persistance;
 using vega.Persistance.RepositoryInterfaces;
+using vega.Persistance.UnitOfWork;
 
 namespace vega.Controllers
 {
@@ -14,12 +15,12 @@ namespace vega.Controllers
     public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
-        private readonly VegaDbContext context;
         private readonly IVehicleRepository repository;
-        public VehiclesController(IMapper mapper, VegaDbContext context, IVehicleRepository repository)
+        private readonly IUnitOfWork unitOfWork;
+        public VehiclesController(IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.repository = repository;
-            this.context = context;
             this.mapper = mapper;
 
         }
@@ -33,7 +34,7 @@ namespace vega.Controllers
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
             repository.CreateVehicle(vehicle);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             vehicle = await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
@@ -53,7 +54,7 @@ namespace vega.Controllers
 
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
             vehicle.LastUpdate = DateTime.Now;
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
@@ -63,13 +64,13 @@ namespace vega.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
-            var vehicle = await repository.GetVehicle(id,includeRelated: false);
+            var vehicle = await repository.GetVehicle(id, includeRelated: false);
 
             if (vehicle == null)
                 return NotFound();
 
             repository.DeleteVehicle(vehicle);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
