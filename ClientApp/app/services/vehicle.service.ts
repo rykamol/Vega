@@ -5,6 +5,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class VehicleService {
 
+  Create(vehicle:any) {
+     return this.http.post('/api/vehicles',vehicle)
+     .map(res =>res.json());
+  }
   constructor(private http:Http) { }
 
   getFeatures(){

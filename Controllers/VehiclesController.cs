@@ -4,10 +4,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vega.Controllers.Resources;
-using vega.Models;
-using vega.Persistance;
-using vega.Persistance.RepositoryInterfaces;
-using vega.Persistance.UnitOfWork;
+using vega.Core;
+using vega.Core.Models;
 
 namespace vega.Controllers
 {
@@ -22,7 +20,6 @@ namespace vega.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
             this.mapper = mapper;
-
         }
 
         [HttpPost]
@@ -56,7 +53,7 @@ namespace vega.Controllers
             vehicle.LastUpdate = DateTime.Now;
             await unitOfWork.CompleteAsync();
 
-
+            vehicle=await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
             return Ok(result);
         }
