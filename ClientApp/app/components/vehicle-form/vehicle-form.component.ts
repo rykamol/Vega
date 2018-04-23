@@ -114,7 +114,26 @@ export class VehicleFormComponent implements OnInit {
           showClose: true,
           timeout: 5000
         });
+      },error=>{
+        if(error.status==400){
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'Unexpected error occur.',
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 5000
+          });
+        }
       });
     }
+  }
+
+  delete(){
+    if(confirm("Are you sure?")){
+     this.vehicleService.delete(this.vehicle.id)
+     .subscribe(x =>{
+       this.router.navigate(['/home']);
+     })
+    };
   }
 }

@@ -640,6 +640,11 @@
       "resolved": "https://registry.npmjs.org/@types/jasmine/-/jasmine-2.5.53.tgz",
       "dev": true
     },
+    "@types/underscore": {
+      "version": "1.8.8",
+      "from": "@types/underscore@>=1.8.8 <2.0.0",
+      "resolved": "https://registry.npmjs.org/@types/underscore/-/underscore-1.8.8.tgz"
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "from": "@types/webpack-env@1.13.0",
@@ -1159,8 +1164,13 @@
     },
     "bootstrap": {
       "version": "3.3.7",
-      "from": "bootstrap@3.3.7",
+      "from": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz",
       "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz"
+    },
+    "bootstrap-4-migrate": {
+      "version": "1.0.1",
+      "from": "bootstrap-4-migrate@latest",
+      "resolved": "https://registry.npmjs.org/bootstrap-4-migrate/-/bootstrap-4-migrate-1.0.1.tgz"
     },
     "brace-expansion": {
       "version": "1.1.8",
@@ -6455,6 +6465,11 @@
       "from": "ultron@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/ultron/-/ultron-1.0.2.tgz",
       "dev": true
+    },
+    "underscore": {
+      "version": "1.9.0",
+      "from": "underscore@latest",
+      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.9.0.tgz"
     },
     "union-value": {
       "version": "0.2.4",
