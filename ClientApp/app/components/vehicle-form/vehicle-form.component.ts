@@ -48,7 +48,7 @@ export class VehicleFormComponent implements OnInit {
     ];
 
     if (this.vehicle.id)
-      source.push(this.vehicleService.getVehicles(this.vehicle.id));
+      source.push(this.vehicleService.getVehicle(this.vehicle.id));
 
     Observable.forkJoin(source).subscribe(data => {
       this.makes = data[0];
@@ -132,7 +132,7 @@ export class VehicleFormComponent implements OnInit {
     if(confirm("Are you sure?")){
      this.vehicleService.delete(this.vehicle.id)
      .subscribe(x =>{
-       this.router.navigate(['/home']);
+       this.router.navigate(['/vehicles']);
      })
     };
   }

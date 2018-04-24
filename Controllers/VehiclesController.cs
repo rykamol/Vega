@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace vega.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateVehicleAsync([FromBody]SaveVehicleResource vehicleResource)
-        {       
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -53,7 +54,7 @@ namespace vega.Controllers
             vehicle.LastUpdate = DateTime.Now;
             await unitOfWork.CompleteAsync();
 
-            vehicle=await repository.GetVehicle(vehicle.Id);
+            vehicle = await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
             return Ok(result);
         }
@@ -75,12 +76,19 @@ namespace vega.Controllers
         public async Task<IActionResult> GetVehicle(int id)
         {
             var vehicle = await repository.GetVehicle(id);
-            if(vehicle==null)
+            if (vehicle == null)
                 return NotFound();
 
             var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
-        
+
             return Ok(vehicleResource);
+        }
+        [HttpGet]
+        public async Task<IEnumerable<VehicleResource>> GetVehicles(FilterResource filterResource)
+        {
+            var filter=mapper.Map<FilterResource,Filters>(filterResource);
+            var vehicles = await repository.GetVehicles(filter);
+            return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         }
 
     }

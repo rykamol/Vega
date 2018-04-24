@@ -31,3 +31,9 @@ export interface SaveVehicle {
     features: number[],
     contact:Contact
 }
+
+export interface Filter {
+    
+    modelId: number,
+    makeId: number,
+}

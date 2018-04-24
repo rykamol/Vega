@@ -1,0 +1,44 @@
+<h1 class="h1-style">Vehicle List</h1>
+<p>
+  <button [routerLink]="['/vehicles/new']" class="btn btn-primary">Create New Vehicle</button>
+</p>
+<div class="well">
+  <div class="form-group">
+    <label for="make">Make</label>
+    <select id="make" class="form-control" [(ngModel)]="filter.makeId" (change)="onFilterChange(); populateModels()">
+      <option value="">Selecto One</option>
+      <option *ngFor="let m of makes" value="{{m.id}}">{{m.name}}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+      <label for="model">Model</label>
+      <select id="model" class="form-control" [(ngModel)]="filter.modelId" (change)="onFilterChange()">
+        <option value="">Select One</option>
+        <option *ngFor="let m of models" value="{{m.id}}">{{m.name}}</option>
+      </select>
+    </div>
+
+  <button class="btn btn-default" (click)="resetFilter()">Reset</button>
+</div>
+
+<table class="table">
+  <thead>
+    <th>Id</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>Contact Name</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of vehicles index as i">
+      <td>{{ i + 1 }}</td>
+      <td>{{ v.make.name }}</td>
+      <td>{{ v.model.name }}</td>
+      <td>{{ v.contact.name }}</td>
+      <td>
+        <a [routerLink]="['/vehicles/', v.id]">View</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

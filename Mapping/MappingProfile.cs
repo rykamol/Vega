@@ -9,7 +9,7 @@ namespace vega.Mapping
     {
         public MappingProfile()
         {
-
+            
             CreateMap<Make, MakeResource>();
             CreateMap<Model, KeyValuePairResource>();
             CreateMap<Feature, KeyValuePairResource>();
@@ -42,7 +42,7 @@ namespace vega.Mapping
             //         v.Features.Add(f);
             // });
 
-
+            CreateMap<FilterResource,Filters>();
             CreateMap<SaveVehicleResource, Vehicle>()
                        .ForMember(v => v.Id, opt => opt.Ignore())
                        .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))

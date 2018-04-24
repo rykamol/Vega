@@ -14,6 +14,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 import { VehicleService } from './services/vehicle.service';
+import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').install();
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        VehicleFormComponent
+        VehicleFormComponent,
+        VehicleListComponent
     ],
     imports: [
         FormsModule,
@@ -31,9 +33,10 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
         HttpModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', redirectTo: '/vehicles', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'vehicles/new', component: VehicleFormComponent },
+            { path: 'vehicles', component: VehicleListComponent },
             { path: 'vehicles/:id', component: VehicleFormComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
