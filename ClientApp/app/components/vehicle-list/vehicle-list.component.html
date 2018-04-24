@@ -12,23 +12,27 @@
   </div>
 
   <div class="form-group">
-      <label for="model">Model</label>
-      <select id="model" class="form-control" [(ngModel)]="filter.modelId" (change)="onFilterChange()">
-        <option value="">Select One</option>
-        <option *ngFor="let m of models" value="{{m.id}}">{{m.name}}</option>
-      </select>
-    </div>
+    <label for="model">Model</label>
+    <select id="model" class="form-control" [(ngModel)]="filter.modelId" (change)="onFilterChange()">
+      <option value="">Select One</option>
+      <option *ngFor="let m of models" value="{{m.id}}">{{m.name}}</option>
+    </select>
+  </div>
 
   <button class="btn btn-default" (click)="resetFilter()">Reset</button>
 </div>
 
 <table class="table">
   <thead>
-    <th>Id</th>
-    <th>Make</th>
-    <th>Model</th>
-    <th>Contact Name</th>
-    <th></th>
+
+    <th *ngFor="let c of columns">
+      <div *ngIf="c.isSortable" (click)="sortBy(c.key)" >
+        {{c.title}}
+        <i *ngIf="filter.sortBy==c.key" class="fa" [class.fa-sort-asc]="filter.isSortAssending" [class.fa-sort-desc]="!filter.isSortAssending">
+        </i>
+      </div>
+      <div *ngIf="!c.isSortable">{{c.title}}</div>
+    </th>
   </thead>
   <tbody>
     <tr *ngFor="let v of vehicles index as i">

@@ -15,7 +15,14 @@ export class VehicleListComponent implements OnInit {
   makes: any[] = [];
   models: any[] = [];
   filter: any = {};
-  // allVehicles:Vehicle[]=[];
+  columns:any[]=[
+    {title:'Id'},
+    {title:'ContactName', key:'contactName',isSortable:'true'},
+    {title:'Make', key:'make',isSortable:'true'},
+    {title:'Model', key:'model',isSortable:'true'},
+    {}
+  ];
+   // allVehicles:Vehicle[]=[];
 
   constructor(private vehicleService: VehicleService, private router: Router) { }
 
@@ -67,5 +74,15 @@ export class VehicleListComponent implements OnInit {
   populateModels() {
     let selectedMake = this.makes.find(m => m.id == this.filter.makeId);
     this.models = selectedMake ? selectedMake.models : [];
+  }
+
+  sortBy(columnName:string){
+    if(this.filter.sortBy===columnName){
+        this.filter.isSortAssending=! this.filter.isSortAssending;
+    }else{
+      this.filter.sortBy=columnName;
+        this.filter.isSortAssending=true;
+    }
+    this.populateVehicles();
   }
 }
