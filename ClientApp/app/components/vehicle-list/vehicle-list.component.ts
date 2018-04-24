@@ -10,11 +10,13 @@ import { Route, Router } from '@angular/router';
   styleUrls: ['./vehicle-list.component.css']
 })
 export class VehicleListComponent implements OnInit {
-
-  vehicles: Vehicle[] = [];
+  private readonly PAGE_SIZE=5;
+  queryResult:any={};
   makes: any[] = [];
   models: any[] = [];
-  filter: any = {};
+  filter: any = {
+    pageSize:this.PAGE_SIZE
+  };
   columns:any[]=[
     {title:'Id'},
     {title:'ContactName', key:'contactName',isSortable:'true'},
@@ -48,7 +50,7 @@ export class VehicleListComponent implements OnInit {
       .subscribe(data => {
         this.makes = data[0],
           // this.allVehicles=data[1],
-          this.vehicles = data[1]
+          this.queryResult = data[1]
       }, error => {
         if (error.status = 404) {
           this.router.navigate(['/vehicles'])
@@ -62,13 +64,17 @@ export class VehicleListComponent implements OnInit {
     // if(this.filter.modelId)
     // vehicles=vehicles.filter(v => v.model.id==this.filter.modelId);
     // this.vehicles=vehicles;
+    this.filter.page=1;
     this.populateVehicles();
   }
   
 
   resetFilter() {
-    this.filter = {};
-    this.onFilterChange();
+    this.filter = {
+      page:1,
+      pageSize: this.PAGE_SIZE
+    };
+    this.populateVehicles();
   }
 
   populateModels() {
@@ -83,6 +89,11 @@ export class VehicleListComponent implements OnInit {
       this.filter.sortBy=columnName;
         this.filter.isSortAssending=true;
     }
+    this.populateVehicles();
+  }
+
+  onPageChanged(page:any){
+    this.filter.page=page;
     this.populateVehicles();
   }
 }

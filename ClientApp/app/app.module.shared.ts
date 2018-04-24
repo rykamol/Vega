@@ -1,3 +1,4 @@
+import { PaginationComponent } from './components/Shared/pagination.component';
 import * as Raven from 'raven-js';
 import { AppErrorHandler } from './app.error-handler';
 import { ToastyModule } from 'ng2-toasty';
@@ -24,7 +25,8 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
         FetchDataComponent,
         HomeComponent,
         VehicleFormComponent,
-        VehicleListComponent
+        VehicleListComponent,
+        PaginationComponent
     ],
     imports: [
         FormsModule,

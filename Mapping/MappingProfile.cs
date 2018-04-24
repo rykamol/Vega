@@ -9,7 +9,7 @@ namespace vega.Mapping
     {
         public MappingProfile()
         {
-            
+            CreateMap(typeof(QueryResult<>),typeof(QueryResultResource<>));
             CreateMap<Make, MakeResource>();
             CreateMap<Model, KeyValuePairResource>();
             CreateMap<Feature, KeyValuePairResource>();
