@@ -36,7 +36,7 @@ export class VehicleFormComponent implements OnInit {
     private vehicleService: VehicleService,
     private toastyService: ToastyService) {
     route.params.subscribe(r => {
-      this.vehicle.id = r['id'];
+      this.vehicle.id = r['id'] || 0;
     })
     console.log(this.vehicle.id);
   }
@@ -126,14 +126,5 @@ export class VehicleFormComponent implements OnInit {
         }
       });
     }
-  }
-
-  delete(){
-    if(confirm("Are you sure?")){
-     this.vehicleService.delete(this.vehicle.id)
-     .subscribe(x =>{
-       this.router.navigate(['/vehicles']);
-     })
-    };
   }
 }

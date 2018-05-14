@@ -16,6 +16,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 import { VehicleService } from './services/vehicle.service';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
+import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.component';
+import { PhotoService } from './services/photo.service';
 Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').install();
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
         HomeComponent,
         VehicleFormComponent,
         VehicleListComponent,
-        PaginationComponent
+        PaginationComponent,
+        ViewVehicleComponent
     ],
     imports: [
         FormsModule,
@@ -39,7 +42,8 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
             { path: 'home', component: HomeComponent },
             { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'vehicles', component: VehicleListComponent },
-            { path: 'vehicles/:id', component: VehicleFormComponent },
+            { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+            { path: 'vehicles/:id', component: ViewVehicleComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
@@ -47,7 +51,8 @@ Raven.config('https://2c0808dbe3f64ae189017a52fa5def59@sentry.io/1193574').insta
     ],
     providers:[
         {provide:ErrorHandler,useClass:AppErrorHandler},
-        VehicleService
+        VehicleService,
+        PhotoService
     ]
 })
 export class AppModuleShared {
